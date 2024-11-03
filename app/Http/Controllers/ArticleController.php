@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
@@ -29,5 +30,19 @@ class ArticleController extends Controller
     return response()->json($articles);
 }
 
+
+
+public function QueryBuilder($query){
+    return DB::table('articles')
+    ->where('title', 'LIKE', '%' . $query . '%')
+    ->orWhere('content', 'LIKE', '%' . $query . '%')
+    ->get();
+}
+
+public function FullTextSearch($query){
+    DB::table('articles')
+              ->whereRaw("MATCH(title, content) AGAINST(? IN BOOLEAN MODE)", [$query])
+              ->get();
+}
 
 }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Faker\Factory as Faker;
 
-class Articles extends Seeder
+class ArticleSeeder extends Seeder
 {
    
     public function run()
@@ -16,7 +16,7 @@ class Articles extends Seeder
 
         foreach (range(1, 50) as $index) {
             DB::table('articles')->insert([
-                'Titlw' => $faker->sentence,
+                'Title' => $faker->sentence,
                 'content' => $faker->paragraph,
                 'DateAdd' => NOW()
             ]);
